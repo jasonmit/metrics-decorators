@@ -42,5 +42,15 @@ module.exports = function(environment) {
 
   }
 
+  ENV.metricsAdapters = [
+    {
+      name: 'GoogleAnalytics',
+      environments: ['development', 'production'],
+      config: {
+        id: 'UA-XXXX-Y'
+      }
+    }
+  ];
+
   return ENV;
 };

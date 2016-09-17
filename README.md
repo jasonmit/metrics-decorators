@@ -1,11 +1,57 @@
-# Ember-metrics-decoractors
+# metrics-decorators
 
-This README outlines the details of collaborating on this Ember addon.
+Exposes ember-metrics API as ES7 decorators.
+
+This is inspired/derived from the [ember-computed-decorators project](https://github.com/rwjblue/ember-computed-decorators).
+
+## Setup
+
+* `ember install metrics-decorators`
+
+### Configure
+
+In order to make use of ES7 decorators, you'll need to configure your project to enable babel support for them.
+
+This is as simple as adding the following to `ember-cli-build.js`:
+
+```js
+var app = new EmberApp({
+  babel: {
+    optional: ['es7.decorators']
+  }
+});
+```
+
+## Example
+
+```js
+import Route from 'ember-route';
+import { trackEvent, trackPage, invoke } from 'metrics-decorators';
+
+export default Route.extend({
+  actions: {
+    @trackEvent('GoogleAnalytics', 'action', 'submit', 'sign up form')
+    handleSubmit(model) {
+      return model.save();
+    },
+
+    @invoke('trackLink', 'Piwik', { linkType: 'download' })
+    saveForm(model) {
+      return model.download();
+    }
+  },
+
+  @trackPage('GoogleAnalytics', 'sign up form')
+  model() {
+    return this.store.createRecord('user');
+  }
+})
+```
 
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd ember-metrics-decoractors`
+* `cd metrics-decorators`
 * `npm install`
 * `bower install`
 
