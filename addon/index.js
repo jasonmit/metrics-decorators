@@ -24,7 +24,7 @@ function decorator(fn) {
 function alias(methodName) {
   return function(...params) {
     return function(...args) {
-      const fn = params.pop();
+      const fn = params[params.length - 1];
       const metrics = getOwner(this).lookup('service:metrics');
       metrics[methodName](...params);
 
