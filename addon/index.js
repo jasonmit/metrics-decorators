@@ -24,9 +24,10 @@ function decorator(fn) {
 function alias(methodName) {
   return function(...params) {
     return function(...args) {
-      const fn = params[params.length - 1];
+      const lastIndex = params.length - 1;
+      const fn = params[lastIndex];
       const metrics = getOwner(this).lookup('service:metrics');
-      metrics[methodName](...params);
+      metrics[methodName](...params.slice(0, lastIndex));
 
       return fn.apply(this, args);
     };
